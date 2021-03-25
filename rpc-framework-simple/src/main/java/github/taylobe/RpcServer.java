@@ -29,8 +29,6 @@ public class RpcServer {
     /**
      * 服务端主动注册服务
      * TODO 修改为注解然后扫描
-     * @param service
-     * @param port
      */
     public void register(Object service, int port) {
         try(ServerSocket server = new ServerSocket(port)) {
