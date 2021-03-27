@@ -2,6 +2,9 @@ package github.taylobe;
 
 import java.io.Serializable;
 
+/**
+ * hello对象信息
+ */
 public class Hello implements Serializable {
     private String message;
     private String description;

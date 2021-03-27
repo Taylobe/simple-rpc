@@ -31,12 +31,12 @@ public class RpcServer {
      * TODO 修改为注解然后扫描
      */
     public void register(Object service, int port) {
-        try(ServerSocket server = new ServerSocket(port)) {
+        try (ServerSocket server = new ServerSocket(port)) {
             logger.info("server starts...");
             Socket socket;
             while ((socket = server.accept()) != null) {
                 logger.info("client connected");
-                threadPool.execute(new WorkerThread(socket, service));
+                threadPool.execute(new ClientMessageHandlerThread(socket, service));
             }
         } catch (IOException e) {
             logger.error("occur IOException:", e);
