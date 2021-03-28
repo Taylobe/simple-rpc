@@ -1,4 +1,4 @@
-package github.taylobe;
+package github.taylobe.remoting.socket;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;

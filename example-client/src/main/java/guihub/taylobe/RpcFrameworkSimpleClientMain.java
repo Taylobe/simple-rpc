@@ -2,7 +2,7 @@ package guihub.taylobe;
 
 import github.taylobe.Hello;
 import github.taylobe.HelloService;
-import github.taylobe.RpcClientProxy;
+import github.taylobe.remoting.socket.RpcClientProxy;
 
 /**
  * 客户端启动类
