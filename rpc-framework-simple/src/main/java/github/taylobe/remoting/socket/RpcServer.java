@@ -10,6 +10,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
 
+/**
+ * rpc服务端
+ */
 public class RpcServer {
 
     public static final Logger logger = LoggerFactory.getLogger(RpcServer.class);

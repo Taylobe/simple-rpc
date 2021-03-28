@@ -19,6 +19,9 @@ public class RpcResponse<T> implements Serializable {
     //响应数据
     public T date;
 
+    /**
+     * 成功
+     */
     public static <T> RpcResponse<T> success(T data) {
         RpcResponse<T> rpcResponse = new RpcResponse<>();
         rpcResponse.setCode(RpcResponseCode.SUCCESS.getCode());
@@ -28,6 +31,9 @@ public class RpcResponse<T> implements Serializable {
         return rpcResponse;
     }
 
+    /**
+     * 失败
+     */
     public static <T> RpcResponse<T> fail(RpcResponseCode rpcResponseCode) {
         RpcResponse<T> rpcResponse = new RpcResponse<>();
         rpcResponse.setCode(rpcResponseCode.getCode());

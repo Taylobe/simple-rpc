@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * hello服务实现1
+ * hello服务实现
  */
 public class HelloServiceImpl implements HelloService {
 

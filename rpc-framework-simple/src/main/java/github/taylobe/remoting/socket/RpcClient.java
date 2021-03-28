@@ -13,10 +13,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * rpc客户端
+ */
 public class RpcClient {
 
     public static final Logger logger = LoggerFactory.getLogger(RpcClient.class);
 
+    /**
+     * 发送请求
+     */
     public Object sendRpcRequest(RpcRequest rpcRequest, String host, int port) {
         try (Socket socket = new Socket(host, port)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());

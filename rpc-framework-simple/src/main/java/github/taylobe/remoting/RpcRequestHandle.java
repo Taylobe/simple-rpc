@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * rpc请求处理
+ */
 public class RpcRequestHandle {
 
     public static final Logger logger = LoggerFactory.getLogger(RpcRequestHandle.class);

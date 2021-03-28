@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 默认服务注册
+ */
 public class DefaultServiceRegistry implements ServiceRegistry {
     private static final Logger logger = LoggerFactory.getLogger(DefaultServiceRegistry.class);
 
@@ -23,8 +26,6 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     /**
      * todo 修改为扫描注解注册
      * 将这个对象所有的实现的接口都注册进去
-     * @param service
-     * @param <T>
      */
     @Override
     public <T> void registry(T service) {
@@ -43,6 +44,9 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         logger.info("Add service : {} and interfaces : {}", serviceName, service.getClass().getInterfaces());
     }
 
+    /**
+     * 通过服务名获取服务
+     */
     @Override
     public Object getService(String serviceName) {
         Object service = serviceMap.get(serviceName);
