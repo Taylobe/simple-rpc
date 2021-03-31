@@ -20,8 +20,8 @@ public class DefaultServiceRegistry implements ServiceRegistry {
      * key:服务/接口 名字
      * value:服务
      */
-    private final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-    private final Set<String> registeredService = ConcurrentHashMap.newKeySet();
+    private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+    private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
     /**
      * todo 修改为扫描注解注册

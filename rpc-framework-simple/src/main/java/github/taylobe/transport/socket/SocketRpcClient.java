@@ -1,10 +1,12 @@
-package github.taylobe.remoting.socket;
+package github.taylobe.transport.socket;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
 import github.taylobe.enumeration.RpcErrorMessageEnum;
 import github.taylobe.enumeration.RpcResponseCode;
 import github.taylobe.exception.RpcException;
+import github.taylobe.transport.RpcClient;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +18,18 @@ import java.net.Socket;
 /**
  * rpc客户端
  */
-public class RpcClient {
+@AllArgsConstructor
+public class SocketRpcClient implements RpcClient {
 
-    public static final Logger logger = LoggerFactory.getLogger(RpcClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcClient.class);
+    private String host;
+    private int port;
 
     /**
      * 发送请求
      */
-    public Object sendRpcRequest(RpcRequest rpcRequest, String host, int port) {
+    @Override
+    public Object sendRpcRequest(RpcRequest rpcRequest) {
         try (Socket socket = new Socket(host, port)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeObject(rpcRequest);

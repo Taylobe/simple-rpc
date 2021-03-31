@@ -1,9 +1,10 @@
-package github.taylobe.remoting.socket;
+package github.taylobe.transport.socket;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
+import github.taylobe.registry.DefaultServiceRegistry;
 import github.taylobe.registry.ServiceRegistry;
-import github.taylobe.remoting.RpcRequestHandle;
+import github.taylobe.transport.RpcRequestHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,18 +13,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class RpcRequestHandleRunnable implements Runnable {
+public class SocketRpcRequestHandleRunnable implements Runnable {
 
-    public static final Logger logger = LoggerFactory.getLogger(RpcRequestHandleRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandleRunnable.class);
 
     private Socket socket;
-    private RpcRequestHandle rpcRequestHandle;
-    private ServiceRegistry serviceRegistry;
+    private static RpcRequestHandle rpcRequestHandle;
+    private static ServiceRegistry serviceRegistry;
 
-    public RpcRequestHandleRunnable(Socket socket, RpcRequestHandle rpcRequestHandle, ServiceRegistry serviceRegistry) {
+    static {
+        rpcRequestHandle = new RpcRequestHandle();
+        serviceRegistry = new DefaultServiceRegistry();
+    }
+    public SocketRpcRequestHandleRunnable(Socket socket) {
         this.socket = socket;
-        this.rpcRequestHandle = rpcRequestHandle;
-        this.serviceRegistry = serviceRegistry;
     }
 
     @Override

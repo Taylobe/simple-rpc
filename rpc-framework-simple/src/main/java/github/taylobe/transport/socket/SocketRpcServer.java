@@ -1,7 +1,6 @@
-package github.taylobe.remoting.socket;
+package github.taylobe.transport.socket;
 
-import github.taylobe.registry.ServiceRegistry;
-import github.taylobe.remoting.RpcRequestHandle;
+import github.taylobe.transport.RpcRequestHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +10,10 @@ import java.net.Socket;
 import java.util.concurrent.*;
 
 /**
- * rpc服务端
+ * rpc客户端代理
  */
-public class RpcServer {
-
-    public static final Logger logger = LoggerFactory.getLogger(RpcServer.class);
+public class SocketRpcServer {
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcServer.class);
 
     /**
      * 线程池参数
@@ -27,10 +25,8 @@ public class RpcServer {
     private ExecutorService threadPool;
 
     private RpcRequestHandle rpcRequestHandle = new RpcRequestHandle();
-    private final ServiceRegistry serviceRegistry;
 
-    public RpcServer(ServiceRegistry serviceRegistry) {
-        this.serviceRegistry = serviceRegistry;
+    public SocketRpcServer() {
         BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         // 初始化线程池
@@ -47,7 +43,7 @@ public class RpcServer {
             Socket socket;
             while ((socket = server.accept()) != null) {
                 logger.info("client connected");
-                threadPool.execute(new RpcRequestHandleRunnable(socket, rpcRequestHandle, serviceRegistry));
+                threadPool.execute(new SocketRpcRequestHandleRunnable(socket));
             }
             threadPool.shutdown();
         } catch (IOException e) {

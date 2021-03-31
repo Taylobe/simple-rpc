@@ -1,15 +1,17 @@
 package github.taylobe.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * Rpc请求类
  */
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Builder
+@ToString
 public class RpcRequest implements Serializable {
     private static final long serialVersionUID = 1905122041950251207L;
 

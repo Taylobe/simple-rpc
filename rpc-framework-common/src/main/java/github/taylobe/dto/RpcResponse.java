@@ -1,14 +1,19 @@
 package github.taylobe.dto;
 
 import github.taylobe.enumeration.RpcResponseCode;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * Rpc响应类
  */
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@ToString
 public class RpcResponse<T> implements Serializable {
     private static final long serialVersionUID = 715745410605631233L;
 
