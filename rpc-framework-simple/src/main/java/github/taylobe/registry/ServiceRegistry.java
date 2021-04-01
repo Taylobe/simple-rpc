@@ -1,7 +1,7 @@
 package github.taylobe.registry;
 
 /**
- * 服务注册接口
+ * 服务注册中心接口
  */
 public interface ServiceRegistry {
 

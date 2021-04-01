@@ -1,7 +1,6 @@
 package github.taylobe.transport;
 
 import github.taylobe.dto.RpcRequest;
-import github.taylobe.transport.socket.SocketRpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

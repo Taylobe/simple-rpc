@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * NettyKryo解码器
+ * 自定义NettyKryo解码器
+ * 负责处理"入站"信息，将消息格式转换成我们需要的业务对象
  */
 @AllArgsConstructor
 public class NettyKryoDecoder extends ByteToMessageDecoder {
@@ -22,6 +23,13 @@ public class NettyKryoDecoder extends ByteToMessageDecoder {
     // Netty传输的消息长度，也就是对象序列化后对应的字节数组的大小，存储在ByteBuf头部
     private static final int BODY_LENGTH = 4;
 
+    /**
+     * 解码byteBuf对象
+     *
+     * @param channelHandlerContext 解码器关联的channelHandlerContext对象
+     * @param byteBuf               "入站"数据，byteBuf对象
+     * @param list                  解码之后的数据对象需要添加到list数组里面
+     */
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) {
 
@@ -36,6 +44,7 @@ public class NettyKryoDecoder extends ByteToMessageDecoder {
             int dataLength = byteBuf.readInt();
             //4.遇见不合理的情况，直接return
             if (dataLength < 0 || byteBuf.readableBytes() < 0) {
+                logger.error("data length or byteBuf readableBytes is not valid");
                 return;
             }
             //5.如果可读字节数小于消息长度的话，说明消息不完整，重置readIndex
@@ -49,6 +58,7 @@ public class NettyKryoDecoder extends ByteToMessageDecoder {
             //7.将bytes数组转换成我们需要的对象
             Object object = serializer.deserialize(bytes, genericClass);
             list.add(object);
+            logger.info("successful decode ByteBuf to Object");
         }
     }
 }

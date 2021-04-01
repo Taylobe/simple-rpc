@@ -12,20 +12,21 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
- * kryo序列化实现
+ * kryo序列化类
+ * 优点：序列化效率高
+ * 缺点：只兼容Java语言
  */
 public class KryoSerializer implements Serializer {
 
-    public static final Logger logger = LoggerFactory.getLogger(KryoSerializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(KryoSerializer.class);
 
     /**
      * 因为kryo不是线程安全的，所以每个线程都应该有自己的kryo，input和output实例。
      * 使用ThreadLocal存放kryo对象，实现线程隔离。
      */
-    private static final ThreadLocal<Kryo> KryoThreadLocal = ThreadLocal.withInitial(() -> {
+    private final ThreadLocal<Kryo> KryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
         kryo.register(RpcResponse.class);
         kryo.register(RpcRequest.class);

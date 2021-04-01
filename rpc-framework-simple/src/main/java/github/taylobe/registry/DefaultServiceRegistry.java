@@ -10,7 +10,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 默认服务注册
+ * 默认的服务注册中心实现
+ * 通过map保存服务信息
+ * todo 后期可以通过zookeeper实现
  */
 public class DefaultServiceRegistry implements ServiceRegistry {
     private static final Logger logger = LoggerFactory.getLogger(DefaultServiceRegistry.class);
@@ -38,7 +40,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         if (interfaces.length == 0) {
             throw new RpcException(RpcErrorMessageEnum.SERVICE_NOT_IMPLEMENT_ANY_INTERFACE);
         }
-        for (Class clazz : interfaces){
+        for (Class clazz : interfaces) {
             serviceMap.put(clazz.getCanonicalName(), service);
         }
         logger.info("Add service : {} and interfaces : {}", serviceName, service.getClass().getInterfaces());
@@ -50,7 +52,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     @Override
     public Object getService(String serviceName) {
         Object service = serviceMap.get(serviceName);
-        if (null == service){
+        if (null == service) {
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);
         }
         return service;

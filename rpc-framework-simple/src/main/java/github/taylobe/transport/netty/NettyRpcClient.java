@@ -2,27 +2,16 @@ package github.taylobe.transport.netty;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
-import github.taylobe.enumeration.RpcErrorMessageEnum;
-import github.taylobe.enumeration.RpcResponseCode;
-import github.taylobe.exception.RpcException;
 import github.taylobe.serialize.kryo.KryoSerializer;
 import github.taylobe.transport.RpcClient;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 /**
  * nettyRpc客户端
@@ -39,8 +28,9 @@ public class NettyRpcClient implements RpcClient {
         this.port = port;
     }
 
+    //初始化相关资源 例如EventLoopGroup、Bootstrap
     static {
-        NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         bootStrap = new Bootstrap();
         KryoSerializer kryoSerializer = new KryoSerializer();
         bootStrap.group(eventLoopGroup)

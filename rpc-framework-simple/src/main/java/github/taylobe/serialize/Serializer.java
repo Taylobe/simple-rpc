@@ -2,6 +2,7 @@ package github.taylobe.serialize;
 
 /**
  * 序列化接口
+ * 所有的序列化类都要实现这个接口
  */
 public interface Serializer {
 
@@ -17,7 +18,7 @@ public interface Serializer {
      * 反序列化
      *
      * @param bytes 序列化后的数组
-     * @param clazz 类
+     * @param clazz 目标类
      * @param <T>   反序列化的对象
      * @return
      */

@@ -5,11 +5,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * NettyKryo编码器
+ * 自定义NettyKryo编码器
+ * 负责处理"出站"消息，将消息格式转换字节数组然后写入到字节数据的容器byteBuf对象中
+ * 网络传输需要通过字节流来实现，byteBuf可以看作是netty提供的字节数据容器，使用它可以更方便地处理字节数据
  */
 @AllArgsConstructor
 public class NettyKryoEncoder extends MessageToByteEncoder<Object> {
@@ -17,6 +17,13 @@ public class NettyKryoEncoder extends MessageToByteEncoder<Object> {
     private Serializer serializer;
     private Class<?> genericClass;
 
+    /**
+     * 将对象转换为字节码然后写入到 ByteBuf 对象中
+     *
+     * @param channelHandlerContext
+     * @param o
+     * @param byteBuf
+     */
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf byteBuf) {
         if (genericClass.isInstance(o)) {

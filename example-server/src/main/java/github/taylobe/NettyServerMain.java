@@ -2,7 +2,6 @@ package github.taylobe;
 
 import github.taylobe.registry.DefaultServiceRegistry;
 import github.taylobe.transport.netty.NettyRpcServer;
-import github.taylobe.transport.socket.SocketRpcServer;
 
 /**
  * netty服务启动类

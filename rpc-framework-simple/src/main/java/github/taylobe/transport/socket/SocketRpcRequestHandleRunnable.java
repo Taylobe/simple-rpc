@@ -25,6 +25,7 @@ public class SocketRpcRequestHandleRunnable implements Runnable {
         rpcRequestHandle = new RpcRequestHandle();
         serviceRegistry = new DefaultServiceRegistry();
     }
+
     public SocketRpcRequestHandleRunnable(Socket socket) {
         this.socket = socket;
     }
@@ -32,7 +33,7 @@ public class SocketRpcRequestHandleRunnable implements Runnable {
     @Override
     public void run() {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())){
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())) {
             RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
             String interfaceName = rpcRequest.getInterfaceName();
             Object service = serviceRegistry.getService(interfaceName);
