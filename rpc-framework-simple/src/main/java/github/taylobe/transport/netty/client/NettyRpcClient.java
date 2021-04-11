@@ -6,6 +6,7 @@ import github.taylobe.serialize.kryo.KryoSerializer;
 import github.taylobe.transport.RpcClient;
 import github.taylobe.transport.netty.codec.NettyKryoDecoder;
 import github.taylobe.transport.netty.codec.NettyKryoEncoder;
+import github.taylobe.utils.checker.RpcMessageChecker;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -70,8 +71,10 @@ public class NettyRpcClient implements RpcClient {
                     }
                 });
                 channel.closeFuture().sync();
-                AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
+                AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse" + rpcRequest.getRequestId());
                 RpcResponse rpcResponse = channel.attr(key).get();
+                //校验RpcResponse和RpcRequest
+                RpcMessageChecker.check(rpcResponse, rpcRequest);
                 return rpcResponse.getDate();
             }
         } catch (InterruptedException e) {

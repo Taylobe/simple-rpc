@@ -6,6 +6,7 @@ import github.taylobe.enumeration.RpcErrorMessageEnum;
 import github.taylobe.enumeration.RpcResponseCode;
 import github.taylobe.exception.RpcException;
 import github.taylobe.transport.RpcClient;
+import github.taylobe.utils.checker.RpcMessageChecker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +33,13 @@ public class SocketRpcClient implements RpcClient {
     public Object sendRpcRequest(RpcRequest rpcRequest) {
         try (Socket socket = new Socket(host, port)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            //通过输出流发送数据到服务端
             objectOutputStream.writeObject(rpcRequest);
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            //从输入流中读取出RpcResponse
             RpcResponse rpcResponse = (RpcResponse) objectInputStream.readObject();
-            if (rpcResponse == null) {
-                logger.error("调用服务失败,serviceName:{}", rpcRequest.getInterfaceName());
-                throw new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE, "interfaceName:" + rpcRequest.getInterfaceName());
-            }
-            if (rpcResponse.getDate() == null || !rpcResponse.getCode().equals(RpcResponseCode.SUCCESS.getCode())) {
-                logger.error("调用服务失败,serviceName:{},RpcResponse:{}", rpcRequest.getInterfaceName(), rpcResponse);
-                throw new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE, "interfaceName:" + rpcRequest.getInterfaceName());
-            }
+            //校验RpcResponse和RpcRequest
+            RpcMessageChecker.check(rpcResponse, rpcRequest);
             return rpcResponse.getDate();
         } catch (IOException | ClassNotFoundException exception) {
             throw new RpcException("调用服务失败:", exception);

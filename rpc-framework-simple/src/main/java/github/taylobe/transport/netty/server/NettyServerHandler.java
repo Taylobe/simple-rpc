@@ -45,7 +45,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 Object result = rpcRequestHandle.handle(rpcRequest, service);
                 logger.info(String.format("server get result : %s", result));
                 //返回方法执行的结果给客户端
-                ChannelFuture channelFuture = channelHandlerContext.writeAndFlush(RpcResponse.success(result));
+                ChannelFuture channelFuture = channelHandlerContext.writeAndFlush(RpcResponse.success(result, rpcRequest.getRequestId()));
                 channelFuture.addListener(ChannelFutureListener.CLOSE);
             } finally {
                 //确保byteBuf被释放，不然有可能会有内存泄露问题
