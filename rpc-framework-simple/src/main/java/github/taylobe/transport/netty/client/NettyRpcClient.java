@@ -1,9 +1,11 @@
-package github.taylobe.transport.netty;
+package github.taylobe.transport.netty.client;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
 import github.taylobe.serialize.kryo.KryoSerializer;
 import github.taylobe.transport.RpcClient;
+import github.taylobe.transport.netty.codec.NettyKryoDecoder;
+import github.taylobe.transport.netty.codec.NettyKryoEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,7 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * nettyRpc客户端
+ * 客户端，发送消息到服务端。
+ * 接收服务端的返回的方法执行结果
  */
 public class NettyRpcClient implements RpcClient {
 

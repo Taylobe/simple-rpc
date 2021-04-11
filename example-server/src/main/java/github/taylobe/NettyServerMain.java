@@ -1,15 +1,12 @@
 package github.taylobe;
 
 import github.taylobe.registry.DefaultServiceRegistry;
-import github.taylobe.transport.netty.NettyRpcServer;
+import github.taylobe.transport.netty.server.NettyRpcServer;
 
 /**
  * netty服务启动类
  */
 public class NettyServerMain {
-    public NettyServerMain() {
-
-    }
     public static void main(String[] args) {
         HelloServiceImpl helloService = new HelloServiceImpl();
         DefaultServiceRegistry defaultServiceRegistry = new DefaultServiceRegistry();

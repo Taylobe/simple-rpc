@@ -13,9 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class SocketRpcRequestHandleRunnable implements Runnable {
+public class SocketRpcRequestHandlerRunnable implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandleRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandlerRunnable.class);
 
     private Socket socket;
     private static RpcRequestHandle rpcRequestHandle;
@@ -26,12 +26,13 @@ public class SocketRpcRequestHandleRunnable implements Runnable {
         serviceRegistry = new DefaultServiceRegistry();
     }
 
-    public SocketRpcRequestHandleRunnable(Socket socket) {
+    public SocketRpcRequestHandlerRunnable(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void run() {
+        logger.info(String.format("server handle message from client by thread: %s", Thread.currentThread().getName()));
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())) {
             RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();

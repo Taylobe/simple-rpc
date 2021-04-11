@@ -4,7 +4,7 @@ import github.taylobe.Hello;
 import github.taylobe.HelloService;
 import github.taylobe.transport.RpcClient;
 import github.taylobe.transport.RpcClientProxy;
-import github.taylobe.transport.netty.NettyRpcClient;
+import github.taylobe.transport.netty.client.NettyRpcClient;
 
 public class NettyClientMain {
     public static void main(String[] args) {

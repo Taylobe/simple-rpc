@@ -1,4 +1,4 @@
-package github.taylobe.transport.netty;
+package github.taylobe.transport.netty.codec;
 
 import github.taylobe.serialize.Serializer;
 import io.netty.buffer.ByteBuf;

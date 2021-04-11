@@ -1,8 +1,10 @@
-package github.taylobe.transport.netty;
+package github.taylobe.transport.netty.server;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
 import github.taylobe.serialize.kryo.KryoSerializer;
+import github.taylobe.transport.netty.codec.NettyKryoDecoder;
+import github.taylobe.transport.netty.codec.NettyKryoEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -17,7 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * rpc服务端
+ * 服务端，接收客户端消息
+ * 根据客户端的消息调用相应的方法，并且返回结果给客户端
  */
 public class NettyRpcServer {
     private static final Logger logger = LoggerFactory.getLogger(NettyRpcServer.class);
@@ -48,7 +51,7 @@ public class NettyRpcServer {
                             socketChannel.pipeline().addLast(new NettyServerHandler());
                         }
                     })
-                    //设置缓冲区
+                    //设置tcp缓冲区
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .option(ChannelOption.SO_KEEPALIVE, true);
