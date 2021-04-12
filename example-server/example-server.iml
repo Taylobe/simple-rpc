@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="hello-service-api" />
+    <orderEntry type="module" module-name="service-api" />
     <orderEntry type="module" module-name="rpc-framework-simple" />
     <orderEntry type="module" module-name="rpc-framework-common" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:30.1.1-jre" level="project" />

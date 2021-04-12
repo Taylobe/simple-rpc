@@ -7,21 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hello-service-api" />
         <module name="example-server" />
         <module name="example-client" />
-        <module name="rpc-framework-core" />
         <module name="rpc-framework-simple" />
         <module name="rpc-framework-common" />
+        <module name="service-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="example-client" target="11" />
       <module name="example-server" target="11" />
-      <module name="hello-service-api" target="11" />
       <module name="rpc-framework-common" target="11" />
       <module name="rpc-framework-core" target="11" />
       <module name="rpc-framework-simple" target="11" />
+      <module name="service-api" target="11" />
       <module name="simple-rpc" target="11" />
     </bytecodeTargetLevel>
   </component>
