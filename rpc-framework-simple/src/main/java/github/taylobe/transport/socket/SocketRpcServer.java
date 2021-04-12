@@ -34,7 +34,7 @@ public class SocketRpcServer {
             }
             threadPool.shutdown();
         } catch (IOException e) {
-            logger.error("occur IOException:", e);
+            logger.error("occur IOException : ", e);
         }
     }
 }

@@ -37,7 +37,7 @@ public class RpcClientProxy implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        logger.info("Call invoke method and invoked method: {}", method.getName());
+        logger.info("Call invoke method and invoked method : {}", method.getName());
         RpcRequest rpcRequest = RpcRequest.builder()
                 .methodName(method.getName())
                 .parameters(args)

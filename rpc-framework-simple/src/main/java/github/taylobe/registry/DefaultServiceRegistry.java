@@ -19,8 +19,8 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     /**
      * 接口名和服务的对应关系，todo 处理一个接口被多个实现类实现的情况
-     * key:服务/接口 名字
-     * value:服务
+     * key : 服务/接口 名字
+     * value : 服务
      */
     private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
     private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();

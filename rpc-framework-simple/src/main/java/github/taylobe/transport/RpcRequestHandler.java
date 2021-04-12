@@ -32,9 +32,9 @@ public class RpcRequestHandler {
         Object service = serviceRegistry.getService(rpcRequest.getInterfaceName());
         try {
             result = invokeTargetMethod(rpcRequest, service);
-            logger.info("service:{} successful invoke method:{}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
+            logger.info("service : {} successful invoke method : {}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            logger.error("occur exception", e);
+            logger.error("occur exception : ", e);
         }
         return result;
     }

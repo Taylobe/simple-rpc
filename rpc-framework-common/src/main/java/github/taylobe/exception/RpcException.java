@@ -8,7 +8,7 @@ import github.taylobe.enumeration.RpcErrorMessageEnum;
 public class RpcException extends RuntimeException {
 
     public RpcException(RpcErrorMessageEnum rpcErrorMessageEnum, String detail) {
-        super(rpcErrorMessageEnum.getMessage() + ":" + detail);
+        super(rpcErrorMessageEnum.getMessage() + " : " + detail);
     }
 
     public RpcException(String message, Throwable throwable) {

@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
 public class NettyRpcClient implements RpcClient {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyRpcClient.class);
-    private String host;
-    private int port;
+    private final String host;
+    private final int port;
     private static final Bootstrap bootStrap;
 
     public NettyRpcClient(String host, int port) {
@@ -60,7 +60,7 @@ public class NettyRpcClient implements RpcClient {
     public Object sendRpcRequest(RpcRequest rpcRequest) {
         try {
             ChannelFuture channelFuture = bootStrap.connect(host, port).sync();
-            logger.info("client connect {}", host + ":" + port);
+            logger.info("client connect {}", host + " : " + port);
             Channel channel = channelFuture.channel();
             if (channel != null) {
                 channel.writeAndFlush(rpcRequest).addListener(future -> {
@@ -73,7 +73,7 @@ public class NettyRpcClient implements RpcClient {
                 channel.closeFuture().sync();
                 AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse" + rpcRequest.getRequestId());
                 RpcResponse rpcResponse = channel.attr(key).get();
-                logger.info("client get rpcResponse from channel:{}", rpcResponse);
+                logger.info("client get rpcResponse from channel : {}", rpcResponse);
                 //校验RpcResponse和RpcRequest
                 RpcMessageChecker.check(rpcResponse, rpcRequest);
                 return rpcResponse.getDate();

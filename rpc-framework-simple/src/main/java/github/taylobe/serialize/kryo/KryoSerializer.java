@@ -15,8 +15,8 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * kryo序列化类
- * 优点：序列化效率高
- * 缺点：只兼容Java语言
+ * 优点 : 序列化效率高
+ * 缺点 : 只兼容Java语言
  */
 public class KryoSerializer implements Serializer {
 
@@ -53,7 +53,7 @@ public class KryoSerializer implements Serializer {
             KryoThreadLocal.remove();
             return output.toBytes();
         } catch (Exception e) {
-            logger.error("occur exception when serialize:", e);
+            logger.error("occur exception when serialize : ", e);
             throw new SerializeException("序列化失败");
         }
     }

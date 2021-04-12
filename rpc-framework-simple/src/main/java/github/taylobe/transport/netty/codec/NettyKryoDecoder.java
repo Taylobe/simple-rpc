@@ -18,8 +18,8 @@ import java.util.List;
 public class NettyKryoDecoder extends ByteToMessageDecoder {
     private static final Logger logger = LoggerFactory.getLogger(NettyKryoDecoder.class);
 
-    private Serializer serializer;
-    private Class<?> genericClass;
+    private final Serializer serializer;
+    private final Class<?> genericClass;
     // Netty传输的消息长度，也就是对象序列化后对应的字节数组的大小，存储在ByteBuf头部
     private static final int BODY_LENGTH = 4;
 

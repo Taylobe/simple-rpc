@@ -27,7 +27,7 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
 
     @Override
     public void run() {
-        logger.info(String.format("server handle message from client by thread: %s", Thread.currentThread().getName()));
+        logger.info(String.format("server handle message from client by thread : %s", Thread.currentThread().getName()));
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())) {
             RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
@@ -35,7 +35,7 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
             objectOutputStream.writeObject(RpcResponse.success(result, rpcRequest.getRequestId()));
             objectOutputStream.flush();
         } catch (IOException | ClassNotFoundException e) {
-            logger.error("occur exception:", e);
+            logger.error("occur exception : ", e);
         }
     }
 }

@@ -42,7 +42,7 @@ public class SocketRpcClient implements RpcClient {
             RpcMessageChecker.check(rpcResponse, rpcRequest);
             return rpcResponse.getDate();
         } catch (IOException | ClassNotFoundException exception) {
-            throw new RpcException("调用服务失败:", exception);
+            throw new RpcException("调用服务失败 : ", exception);
         }
     }
 }
