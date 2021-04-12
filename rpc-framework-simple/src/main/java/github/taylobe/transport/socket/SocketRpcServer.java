@@ -14,7 +14,7 @@ import java.util.concurrent.*;
  */
 public class SocketRpcServer {
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcServer.class);
-    private ExecutorService threadPool;
+    private final ExecutorService threadPool;
 
     public SocketRpcServer() {
         threadPool = ThreadPoolFactory.createDefaultThreadPool("socket-server-rpc-pool");

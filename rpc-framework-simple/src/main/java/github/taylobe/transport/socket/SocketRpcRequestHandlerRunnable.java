@@ -2,9 +2,7 @@ package github.taylobe.transport.socket;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
-import github.taylobe.registry.DefaultServiceRegistry;
-import github.taylobe.registry.ServiceRegistry;
-import github.taylobe.transport.RpcRequestHandle;
+import github.taylobe.transport.RpcRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +14,11 @@ import java.net.Socket;
 public class SocketRpcRequestHandlerRunnable implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandlerRunnable.class);
-
     private Socket socket;
-    private static RpcRequestHandle rpcRequestHandle;
-    private static ServiceRegistry serviceRegistry;
+    private static final RpcRequestHandler rpcRequestHandler;
 
     static {
-        rpcRequestHandle = new RpcRequestHandle();
-        serviceRegistry = new DefaultServiceRegistry();
+        rpcRequestHandler = new RpcRequestHandler();
     }
 
     public SocketRpcRequestHandlerRunnable(Socket socket) {
@@ -36,13 +31,11 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())) {
             RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
-            String interfaceName = rpcRequest.getInterfaceName();
-            Object service = serviceRegistry.getService(interfaceName);
-            Object result = rpcRequestHandle.handle(rpcRequest, service);
+            Object result = rpcRequestHandler.handle(rpcRequest);
             objectOutputStream.writeObject(RpcResponse.success(result, rpcRequest.getRequestId()));
             objectOutputStream.flush();
         } catch (IOException | ClassNotFoundException e) {
-            logger.error("occur exception : ", e);
+            logger.error("occur exception:", e);
         }
     }
 }

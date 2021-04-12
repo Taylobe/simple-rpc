@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 public class NettyRpcServer {
     private static final Logger logger = LoggerFactory.getLogger(NettyRpcServer.class);
     private final int port;
-    private KryoSerializer kryoSerializer;
+    private final KryoSerializer kryoSerializer;
 
     public NettyRpcServer(int port) {
         this.port = port;

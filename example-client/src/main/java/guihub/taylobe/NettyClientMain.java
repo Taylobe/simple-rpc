@@ -12,6 +12,7 @@ public class NettyClientMain {
         RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcClient);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         String hello = helloService.hello(new Hello("hi", "rpc is come"));
-        System.out.println(hello);
+        //如需使用 assert 断言，需要在 VM options 添加参数：-ea
+        assert "Hello description is rpc is come".equals(hello);
     }
 }

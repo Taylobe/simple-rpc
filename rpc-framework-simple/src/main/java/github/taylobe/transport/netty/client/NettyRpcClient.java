@@ -73,6 +73,7 @@ public class NettyRpcClient implements RpcClient {
                 channel.closeFuture().sync();
                 AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse" + rpcRequest.getRequestId());
                 RpcResponse rpcResponse = channel.attr(key).get();
+                logger.info("client get rpcResponse from channel:{}", rpcResponse);
                 //校验RpcResponse和RpcRequest
                 RpcMessageChecker.check(rpcResponse, rpcRequest);
                 return rpcResponse.getDate();

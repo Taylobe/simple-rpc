@@ -16,7 +16,5 @@ public class RpcFrameworkSimpleClientMain {
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         String hello = helloService.hello(new Hello("hello", "rpc is coming"));
         System.out.println(hello);
-
-        RpcClient rpcClient2 = new SocketRpcClient("127.0.0.1", 9999);
     }
 }
