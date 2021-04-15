@@ -2,10 +2,8 @@ package github.taylobe.transport.socket;
 
 import github.taylobe.dto.RpcRequest;
 import github.taylobe.dto.RpcResponse;
-import github.taylobe.enumeration.RpcErrorMessageEnum;
-import github.taylobe.enumeration.RpcResponseCode;
 import github.taylobe.exception.RpcException;
-import github.taylobe.transport.RpcClient;
+import github.taylobe.transport.ClientTransport;
 import github.taylobe.utils.checker.RpcMessageChecker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -20,11 +18,11 @@ import java.net.Socket;
  * rpc客户端
  */
 @AllArgsConstructor
-public class SocketRpcClient implements RpcClient {
+public class SocketRpcClient implements ClientTransport {
 
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcClient.class);
-    private String host;
-    private int port;
+    private final String host;
+    private final int port;
 
     /**
      * 发送请求
@@ -42,6 +40,7 @@ public class SocketRpcClient implements RpcClient {
             RpcMessageChecker.check(rpcResponse, rpcRequest);
             return rpcResponse.getDate();
         } catch (IOException | ClassNotFoundException exception) {
+            logger.error("occur exception when send sendRpcRequest");
             throw new RpcException("调用服务失败 : ", exception);
         }
     }

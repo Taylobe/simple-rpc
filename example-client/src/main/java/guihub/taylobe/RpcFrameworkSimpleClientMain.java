@@ -2,7 +2,7 @@ package guihub.taylobe;
 
 import github.taylobe.Hello;
 import github.taylobe.HelloService;
-import github.taylobe.transport.RpcClient;
+import github.taylobe.transport.ClientTransport;
 import github.taylobe.transport.RpcClientProxy;
 import github.taylobe.transport.socket.SocketRpcClient;
 
@@ -11,8 +11,8 @@ import github.taylobe.transport.socket.SocketRpcClient;
  */
 public class RpcFrameworkSimpleClientMain {
     public static void main(String[] args) {
-        RpcClient rpcClient = new SocketRpcClient("127.0.0.1", 9999);
-        RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcClient);
+        ClientTransport clientTransport = new SocketRpcClient("127.0.0.1", 9999);
+        RpcClientProxy rpcClientProxy = new RpcClientProxy(clientTransport);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         String hello = helloService.hello(new Hello("hello", "rpc is coming"));
         System.out.println(hello);
